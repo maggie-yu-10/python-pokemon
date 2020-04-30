@@ -1,7 +1,8 @@
 from pokemon import Pokemon
 from tkinter import *
 from tkinter.ttk import Progressbar
-from tkinter import ttk
+from tkinter import ttk, font
+from tkinter.font import Font
 from PIL import ImageTk, Image, ImageOps
 window = Tk()
 window.title("CIS192 Pokemon Battle")
@@ -12,22 +13,31 @@ window.geometry('500x800')
 s = ttk.Style()
 s.theme_use('classic')
 s.configure("health.Horizontal.TProgressbar", foreground='medium spring green', background='medium spring green', troughcolor='antiquewhite1', borderwidth=0, thickness=6)
+my_font = Font(family="Courier", size="16", weight="bold")
 
 # creates text
-# lbl = Label(window, text = "Hello")
+# lbl = Label(window, text = "Hello", font=my_font)
 # lbl.grid(column=0, row=0)
 
+def render_image(name):
+    img = Image.open(name)
+    img_render = ImageTk.PhotoImage(img)
+    return img_render
+
+def render_image(name, width, height):
+    img = Image.open(name)
+    img = img.resize((width, height), Image.ANTIALIAS)
+    img_render = ImageTk.PhotoImage(img)
+    return img_render
+
+#list of backgrounds to cycle through
+backgrounds = [render_image("backgrounds/ptampons.png", 495, 300), render_image("backgrounds/pvanpelt.png", 495, 300), render_image("backgrounds/plove.png", 495, 300), render_image("backgrounds/plocust.png", 495, 300), render_image("backgrounds/phuntsman.png", 495, 300)]
 # creates all pokemon
 you = Pokemon(name="you", level=5, basehealth=100, health=100, atck=80, defense=80, speed=50)
 you.add_move("Soylent", 0, 2, 1, 1)
 you.add_move("Office Hours", 0, 1, 1, 2)
 you.add_move("Code", 30, 1, 1, 1)
 you.add_move("Cry", 0, 1, 1, 1)
-
-def render_image(name):
-    img = Image.open(name)
-    img_render = ImageTk.PhotoImage(img)
-    return img_render
 
 # Pokemon 1 and Pokemon 2
 def attack_click():
@@ -93,6 +103,20 @@ def attack_click():
     b3.place(x=25, y=400)
     b4.place(x=250, y=400)'''
 
+def flee_click():
+    #change background
+    window.winfo_children()[0].destroy()
+    change_background()
+
+    # display "tried to run away, but your opponents follow you!" in the first text box area
+    runaway_text = Label(text="You tried to run away, but your opponents follow you!", font=my_font, height=3, width=43, bg="#68a0a0", fg="#fffcfc", wraplength=230)
+    runaway_text.text = "You tried to run away, but your opponents follow you!"
+    runaway_text.place(x=30, y=230)
+    # runaway_text.after(10, lambda: runaway_text.destroy())
+
+
+
+
 tia = Pokemon(name="tia", level=10, basehealth=100, health=100, atck=50, defense=50, speed=50)
 # maggie = Pokemon(name="maggie", level=10, basehealth=100, health=100, atck=50, defense=50, speed=50)
 # amyg = Pokemon(name="amyg", level=99, basehealth=200, health=200, atck=30, defense=30, speed=1)
@@ -100,13 +124,17 @@ tia = Pokemon(name="tia", level=10, basehealth=100, health=100, atck=50, defense
 # gs = Pokemon(name="gs", level=15, basehealth=100, health=100, atck=90, defense=70, speed=40)
 
 
-# insert top background
-top = Image.open("backgrounds/template1.png")
-top = top.resize((495, 300), Image.ANTIALIAS)
-top_render = ImageTk.PhotoImage(top)
-top_img = Label(image=top_render)
-top_img.image = top_render
-top_img.place(x=0, y=0)
+def change_background():
+    # insert top background
+    top_render = backgrounds[0]
+    backgrounds.remove(top_render)
+    backgrounds.append(top_render)
+    top_img = Label(image=top_render)
+    top_img.image = top_render
+    top_img.place(x=0, y=0)
+    top_img.lower()
+
+change_background()
 
 # insert bottom screen
 bot = Image.open("backgrounds/bartemp1.png")
@@ -188,7 +216,7 @@ party.place(x=275, y=355)
 flee_img = Image.open("flee.png")
 flee_img = flee_img.resize((70, 30), Image.ANTIALIAS)
 flee_photo = ImageTk.PhotoImage(flee_img)
-flee = Button(window, image=flee_photo)
+flee = Button(window, image=flee_photo, command=flee_click)
 flee.place(x=395, y=355)
 
 # health bars 1: me, 2: opponent
