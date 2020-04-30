@@ -1,3 +1,4 @@
+import pokemon
 from tkinter import *
 from tkinter.ttk import Progressbar
 from tkinter import ttk
@@ -79,7 +80,7 @@ amyg_textb_lvl_img.place(x=190, y=40)
 atck_img = Image.open("attack.png")
 atck_img = atck_img.resize((90, 30), Image.ANTIALIAS)
 atck_photo = ImageTk.PhotoImage(atck_img)
-atck = Button(window, image=atck_photo)
+atck = Button(window, image=atck_photo, command=cisstudent_attack1)
 atck.place(x=275, y=320)
 
 #creates bag button
@@ -114,7 +115,6 @@ health2 = ttk.Progressbar(window, style="health.Horizontal.TProgressbar", orient
 health2.place(x=110, y=64)
 
 
-txt = "One day in Phileadelphia, a CIS major signs up for CIS102"
 # txt = scrolledtext.ScrolledText(window, width=40, height=10)
 # txt.grid(row=3, column=0)
 # txt.insert(INSERT, "One day in Philadelphia, a CIS major walks signs up for CIS192")
