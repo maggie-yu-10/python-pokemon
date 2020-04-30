@@ -1,10 +1,22 @@
+from move import Move
+from PIL import ImageTk, Image, ImageOps
 class Pokemon(object):
-    def __init__(self, name):
+    def __init__(self, name, level, basehealth, health, atck, defense, speed):
         self.name = name
+        self.level = level
+        self.basehealth = basehealth
+        self.health = health
+        self.atck = atck
+        self.defense = defense
+        self.speed = speed
+        self.move_list = []
 
-    def printName(self):
-        print(self.name)
+    def getName(self):
+        return name
 
-if __name__ == "__main__":
-    pokemon = Pokemon()
-    pokemon.printName()
+    def add_move(self, name, damage, atck, defense, speed):
+        move = Move(name, damage, atck, defense, speed)
+        self.move_list.append(move)
+
+    def get_atck_img(self):
+        return self.atck_img
