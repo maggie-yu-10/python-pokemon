@@ -1,5 +1,4 @@
-<img src="https://github.com/maggie-yu-10/python-pokemon/blob/master/pokemon1.png?raw=true" width="48">
-<img src="https://github.com/maggie-yu-10/python-pokemon/blob/master/pokemon2.png?raw=true" width="48">
+<img src="https://github.com/maggie-yu-10/python-pokemon/blob/master/pokemon1.png?raw=true" width="100"> <img src="https://github.com/maggie-yu-10/python-pokemon/blob/master/pokemon2.png?raw=true" width="100">
 
 Name: Tianhe Xie and Maggie Yu
 Pennkey: tianhex maggieyu
